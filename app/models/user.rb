@@ -9,4 +9,10 @@ class User < ApplicationRecord
 
   after_create :create_profile
   after_create :create_cart
+
+  private
+
+  def create_cart
+    Cart.create(user: self) unless cart
+  end
 end
