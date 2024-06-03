@@ -1,19 +1,24 @@
 <nav>
-  <ul>
+  <ul class="nav-items">
     <li><%= link_to 'Home', root_path %></li>
-    <% if user_signed_in? %>
-      <li><%= link_to 'Profile', profile_path(current_user.id) %></li>
-      <li><%= button_to 'Logout', destroy_user_session_path, method: :delete %></li>
-    <% else %>
-      <li><%= link_to 'Login', new_user_session_path %></li>
-    <% end %>
-    <li>
-      <%= link_to cart_path(current_user.id) do %>
-        <i class="fas fa-shopping-cart"></i>
-        <% if @cart_items_count.to_i > 0 %>
-          <span class="cart-badge"><%= @cart_items_count %></span>
+    <div>
+      <li>
+      <% if user_signed_in? %>
+        <%= link_to cart_path(current_user.id) do %>
+          <i class="fas fa-shopping-cart"></i>
+          <% if @cart_items_count.to_i > 0 %>
+            <span class="cart-badge"><%= @cart_items_count %></span>
+          <% end %>
         <% end %>
       <% end %>
-    </li>
+      </li>
+
+      <% if user_signed_in? %>
+        <li><%= link_to 'Profile', profile_path(current_user.id) %></li>
+        <li><%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "logout-button" %></li>
+      <% else %>
+        <li><%= link_to 'Login', new_user_session_path %></li>
+      <% end %>
+    </div>
   </ul>
 </nav>

@@ -1,0 +1,49 @@
+nav ul li a {
+    text-decoration: none;
+    color: #fff4e9;
+}
+
+nav ul li a:hover {
+    color: #6b5a48;
+}
+
+nav {
+    margin: 0px;
+    padding: 20px;
+    background-color: #879183;
+    font: 30px/1.5 'Roboto', sans-serif;
+}
+
+.nav-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fas {
+    font-size: 28px;
+}
+
+.cart-badge {
+    position: relative;
+    top: 5px;
+    right: 15px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+    font-size: 20px;
+}
+
+.logout-button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #fff4e9;
+    cursor: pointer;
+    font: inherit;
+}
+
+.logout-button:hover {
+    color: #6b5a48;
+}

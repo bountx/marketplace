@@ -14,6 +14,70 @@
  *= require_self
  */
 
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+caption {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
 nav ul {
     list-style-type: none;
     padding: 0;
@@ -26,26 +90,6 @@ nav ul li {
     margin-right: 15px;
 }
 
-nav ul li a {
-    text-decoration: none;
-    color: #000;
-}
-
-nav ul li a:hover {
-    text-decoration: underline;
-}
-
 nav ul li form {
     display: inline;
-}
-
-.cart-badge {
-    position: absolute;
-    top: 8px;
-    right: 16px;
-    padding: 2px 6px;
-    border-radius: 50%;
-    background: red;
-    color: white;
-    font-size: 12px;
 }
