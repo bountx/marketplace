@@ -59,6 +59,12 @@ class CartsController < ApplicationController
     end
   end
 
+  def clear
+    @cart = current_user.cart
+    @cart.cart_items.destroy_all
+    redirect_to cart_path(@cart), notice: 'Cart was successfully cleared.'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cart

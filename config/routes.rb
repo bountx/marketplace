@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   resources :products do
     resources :reviews
   end
-  resources :carts
+  resources :carts do
+    member do
+      delete :clear
+    end
+  end
   resources :cart_items
   resources :profiles, only: [:show]
 
