@@ -10,7 +10,7 @@ class CartItemsController < ApplicationController
     else
       @cart_item.quantity += cart_item_params[:quantity].to_i
     end
-    
+
     if @cart_item.save
       redirect_to cart_path(@cart), notice: 'Item added to cart.'
     else
