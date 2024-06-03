@@ -5,13 +5,13 @@
   <h2>This is your profile.</h2>
   
    <p>Your products</p>
-   <%if @products==nil%>
+   <%if @profile.user.products==nil%>
     <p>You have no products</p>
     <%else%>
-  <% @products.each do |product| %>
-    <h1><%= @product.name %></h1>
-    <p><%= @product.description %></p>
-    <p>Price: <%= number_to_currency(@product.price) %></p>
+  <% @profile.user.products.each do |product| %>
+    <h1><%= product.name %></h1>
+    <p><%= product.description %></p>
+    <p>Price: <%= number_to_currency(product.price) %></p>
     <%end%>
   <% end %>  
   
