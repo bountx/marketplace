@@ -12,7 +12,7 @@ class CartItemsController < ApplicationController
     end
 
     if @cart_item.save
-      redirect_to cart_path(@cart), notice: 'Item added to cart.'
+      redirect_to products_path, notice: 'Item added to cart.'
     else
       redirect_to products_path, alert: 'Could not add item to cart.'
     end

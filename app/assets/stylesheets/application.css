@@ -17,11 +17,13 @@
 nav ul {
     list-style-type: none;
     padding: 0;
+    display: flex;
 }
 
 nav ul li {
     display: inline;
-    margin-right: 10px;
+    position: relative;
+    margin-right: 15px;
 }
 
 nav ul li a {
@@ -35,4 +37,15 @@ nav ul li a:hover {
 
 nav ul li form {
     display: inline;
+}
+
+.cart-badge {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+    font-size: 12px;
 }
