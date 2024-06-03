@@ -1,0 +1,8 @@
+<h1><%= @profile.user.email %>'s Profile</h1>
+<p><%= @profile.bio %></p>
+
+<h2>Reviews</h2>
+<% @reviews.each do |review| %>
+  <p><%= review.content %> - <%= review.rating %>/5</p>
+  <p>Reviewed product: <%= link_to review.product.name, product_path(review.product) %></p>
+<% end %>

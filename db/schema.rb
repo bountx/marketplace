@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_03_085232) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_03_091701) do
   create_table "cart_items", force: :cascade do |t|
     t.integer "cart_id", null: false
     t.integer "product_id", null: false
@@ -44,15 +44,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_03_085232) do
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.text "bio"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.text "content"
     t.integer "rating"
-    t.integer "user_id", null: false
     t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "profile_id"
     t.index ["product_id"], name: "index_reviews_on_product_id"
-    t.index ["user_id"], name: "index_reviews_on_user_id"
+    t.index ["profile_id"], name: "index_reviews_on_profile_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,6 +79,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_03_085232) do
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users"
   add_foreign_key "products", "categories"
+  add_foreign_key "profiles", "users"
   add_foreign_key "reviews", "products"
-  add_foreign_key "reviews", "users"
+  add_foreign_key "reviews", "profiles"
 end

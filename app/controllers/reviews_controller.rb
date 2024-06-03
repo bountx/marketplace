@@ -21,7 +21,9 @@ class ReviewsController < ApplicationController
 
   # POST /reviews or /reviews.json
   def create
-    @review = Review.new(review_params)
+    @product = Product.find(params[:product_id])
+    @review = @product.reviews.new(review_params)
+    @review.profile = current_user.profile
 
     respond_to do |format|
       if @review.save
@@ -49,7 +51,9 @@ class ReviewsController < ApplicationController
 
   # DELETE /reviews/1 or /reviews/1.json
   def destroy
-    @review.destroy!
+    @review = Review.find(params[:id])
+    @review.destroy
+    redirect_to @review.product, notice: "Review was successfully destroyed."
 
     respond_to do |format|
       format.html { redirect_to reviews_url, notice: "Review was successfully destroyed." }

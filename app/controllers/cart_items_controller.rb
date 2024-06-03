@@ -1,5 +1,5 @@
 class CartItemsController < ApplicationController
-  before_action :set_cart_item, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /cart_items or /cart_items.json
   def index
@@ -21,7 +21,11 @@ class CartItemsController < ApplicationController
 
   # POST /cart_items or /cart_items.json
   def create
-    @cart_item = CartItem.new(cart_item_params)
+    @cart = current_user.cart || current_user.create_cart
+    @cart_item = @cart.cart_items.find_or_initialize_by(product_id: cart_item_params[:product_id])
+    @cart_item.quantity = params[:quantity] || 1
+    @cart_item.save
+    redirect_to cart_path(@cart)
 
     respond_to do |format|
       if @cart_item.save
@@ -36,6 +40,10 @@ class CartItemsController < ApplicationController
 
   # PATCH/PUT /cart_items/1 or /cart_items/1.json
   def update
+    @cart_item = CartItem.find(params[:id])
+    @cart_item.update(quantity: params[:quantity])
+    redirect_to cart_path(@cart_item.cart)
+
     respond_to do |format|
       if @cart_item.update(cart_item_params)
         format.html { redirect_to cart_item_url(@cart_item), notice: "Cart item was successfully updated." }
@@ -49,7 +57,9 @@ class CartItemsController < ApplicationController
 
   # DELETE /cart_items/1 or /cart_items/1.json
   def destroy
-    @cart_item.destroy!
+    @cart_item = CartItem.find(params[:id])
+    @cart_item.destroy
+    redirect_to cart_path(@cart_item.cart)
 
     respond_to do |format|
       format.html { redirect_to cart_items_url, notice: "Cart item was successfully destroyed." }
