@@ -1,37 +1,59 @@
-<%= form_with(model: product) do |form| %>
-  <% if product.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+<!-- app/views/products/new.html.erb -->
 
+<%= form_with(model: @product, local: true) do |form| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
       <ul>
-        <% product.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% @product.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
+  <div class="field">
+    <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
+  <div class="field">
+    <%= form.label :description %>
     <%= form.text_area :description %>
   </div>
 
-  <div>
-    <%= form.label :price, style: "display: block" %>
-    <%= form.text_field :price %>
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price, step: :any %>
   </div>
 
-  <div>
-    <%= form.label :category_id, style: "display: block" %>
-    <%= form.text_field :category_id %>
+  <div class="field">
+    <%= form.label :category_id, 'Category' %>
+    <%= form.collection_select :category_id, @categories, :id, :name, prompt: true %>
   </div>
 
-  <div>
+  <div class="field">
+  <%= form.hidden_field :user_id, value: current_user.id  %>
+  </div>
+
+  <h3>Or create a new category</h3>
+
+  <li><%= link_to 'Add Category', new_category_path%></li>
+  <!--
+  <%= form.fields_for :category do |category_form| %>
+    <div class="field">
+      <%= category_form.label :name %>
+      <%= category_form.text_field :name %>
+    </div>
+  <% end %>
+  -->
+
+  <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+
+
+
+
+

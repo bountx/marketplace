@@ -1,8 +1,32 @@
 <h1><%= @profile.user.email %>'s Profile</h1>
 <p><%= @profile.bio %></p>
 
-<h2>Reviews</h2>
-<% @reviews.each do |review| %>
-  <p><%= review.content %> - <%= review.rating %>/5</p>
-  <p>Reviewed product: <%= link_to review.product.name, product_path(review.product) %></p>
+<% if @profile.user == current_user %>
+  <h2>This is your profile.</h2>
+  
+   <p>Your products</p>
+   <%if @profile.user.products==nil%>
+    <p>You have no products</p>
+    <%else%>
+  <% @profile.user.products.each do |product| %>
+    <h1><%= product.name %></h1>
+    <p><%= product.description %></p>
+    <p>Price: <%= number_to_currency(product.price) %></p>
+    <%end%>
+  <% end %>  
+  
+  <p>Your reviews</p>
+  <% @reviews.each do |review| %>
+    <p><%= review.content %> - <%= review.rating %>/5</p>
+    <p>Reviewed product: <%= link_to review.product.name, product_path(review.product) %></p>
+  <% end %>
+
+  <li><%= button_to 'Add Product', new_product_path, method: :get %></li>
+  <li><%= button_to 'Edit profile', edit_user_registration_path, method: :get %></li>
+<% else %>
+<h3>Reviews</h3>
+  <% @reviews.each do |review| %>
+    <p><%= review.content %> - <%= review.rating %>/5</p>
+    <p>Reviewed product: <%= link_to review.product.name, product_path(review.product) %></p>
+  <% end %>
 <% end %>

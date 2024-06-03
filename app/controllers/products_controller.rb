@@ -16,6 +16,8 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
+    @categories = Category.all
+    @category = Category.new
   end
 
   # GET /products/1/edit
@@ -31,6 +33,8 @@ class ProductsController < ApplicationController
         format.html { redirect_to product_url(@product), notice: "Product was successfully created." }
         format.json { render :show, status: :created, location: @product }
       else
+        @categories = Category.all
+        @category = Category.new
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
@@ -68,6 +72,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:name, :description, :price, :category_id)
+      params.require(:product).permit(:name, :description, :price, :category_id, :user_id)
     end
 end
