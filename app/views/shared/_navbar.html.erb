@@ -8,5 +8,13 @@
     <% else %>
       <li><%= link_to 'Login', new_user_session_path %></li>
     <% end %>
+    <li>
+      <%= link_to cart_path(current_user.id) do %>
+        <i class="fas fa-shopping-cart"></i>
+        <% if @cart_items_count.to_i > 0 %>
+          <span class="cart-badge"><%= @cart_items_count %></span>
+        <% end %>
+      <% end %>
+    </li>
   </ul>
 </nav>
