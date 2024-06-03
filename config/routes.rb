@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   get 'profiles/show'
-  devise_for :users do
-    get '/users/sign_out' => 'devise/sessions#destroy'
-  end
+  devise_for :users
   resources :categories
   resources :products do
     resources :reviews
