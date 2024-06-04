@@ -1,9 +1,3 @@
-.profile {
-    width: 1280px;
-    margin: 0 auto;
-    margin-top: 40px;
-}
-
 .profile-title {
     color: var(--primary-color);
     font-size: 32px;
@@ -42,75 +36,6 @@
     display: inline-block;
     margin: 0;
     margin-left: 20px
-}
-
-.product {
-    display: inline-block;
-    width: auto;
-    margin-right: 20px;
-}
-
-.product-panel {
-    position: relative;
-    background-color: var(--background-color);
-    display: inline-block;
-    vertical-align: top;
-    width: auto;
-    border-width: 3px;
-    border-color: var(--accent-color);
-    border-style: solid;
-    border-radius: 10px;
-    margin-bottom: 5px;
-    margin-top: 20px;
-    overflow: hidden;
-}
-
-.product-image {
-    display: inline-block;
-    width: 380px;
-    height: 270px;
-    object-fit: cover;
-    margin-bottom: 10px;
-}
-
-.product-name {
-    color: var(--primary-color);
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    text-decoration: none;
-    margin-left: 10px;
-}
-
-.product-category-price-layout {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.product-category {
-    color: var(--primary-color);
-    font-size: 20px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-}
-
-.product-price {
-    color: var(--primary-color);
-    font-size: 20px;
-    margin-bottom: 10px;
-    margin-right: 10px;
-}
-
-/* Puts span with product link on top of the whole panel */
-.product-link {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-
-    z-index: 1;
 }
 
 .delete-button-container {
