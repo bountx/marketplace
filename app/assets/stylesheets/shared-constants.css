@@ -1,0 +1,10 @@
+/* /home/ath0/repos/marketplace/app/assets/stylesheets/shared-constants.css */
+
+:root {
+    --primary-color: #47413b;
+    --secondary-color: #9eab9a;
+    --background-color: #fff4e9;
+    --darker-background-color: #e7d8c9;
+    --accent-color: #879183;
+    --info-color: #17a2b8;
+}

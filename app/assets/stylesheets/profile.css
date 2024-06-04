@@ -1,0 +1,74 @@
+.profile {
+    width: 1280px;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+.profile-title {
+    color: var(--primary-color);
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.profile-info {
+    padding: 20px;
+    width: 40%;
+    background-color: var(--background-color);
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: var(--accent-color);
+    margin-bottom: 40px;
+}
+
+.profile-info-subtitle {
+    color: var(--primary-color);
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.profile-email {
+    color: var(--primary-color);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.product {
+    position: relative;
+    background-color: var(--background-color);
+    display: inline-block;
+    vertical-align: top;
+    width: auto;
+    border-width: 3px;
+    border-color: var(--accent-color);
+    border-style: solid;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.product-image {
+    display: inline-block;
+    width: 400px;
+}
+
+.product-name {
+    color: var(--primary-color);
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-decoration: none;
+    display: inline;
+}
+
+/* Puts span with product link on top of the whole panel */
+.product-link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    z-index: 1;
+}
