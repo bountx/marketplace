@@ -1,6 +1,6 @@
-<!-- app/views/products/new.html.erb -->
 
-<%= form_with(model: @product, local: true) do |form| %>
+
+<%= form_with(model: @product, local: true, multipart: true) do |form| %>
   <% if @product.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
@@ -36,24 +36,16 @@
   <%= form.hidden_field :user_id, value: current_user.id  %>
   </div>
 
+   <div class="field">
+    <%= form.label :images, 'Images' %>
+    <%= form.file_field :images, multiple: true %>
+  </div>
+
   <h3>Or create a new category</h3>
 
   <li><%= link_to 'Add Category', new_category_path%></li>
-  <!--
-  <%= form.fields_for :category do |category_form| %>
-    <div class="field">
-      <%= category_form.label :name %>
-      <%= category_form.text_field :name %>
-    </div>
-  <% end %>
-  -->
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
-
-
-
-
-

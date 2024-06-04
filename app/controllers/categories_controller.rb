@@ -12,6 +12,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories/new
   def new
+    @product= Product.new
     @category = Category.new
   end
 
@@ -25,7 +26,7 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
-        format.html { redirect_to category_url(@category), notice: "Category was successfully created." }
+        format.html { redirect_to new_product_path, notice: "Category was successfully created." }
         format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new, status: :unprocessable_entity }

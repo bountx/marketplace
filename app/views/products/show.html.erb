@@ -1,21 +1,46 @@
+
 <h1><%= @product.name %></h1>
 <p><%= @product.description %></p>
-<p>Price: <%= number_to_currency(@product.price) %></p>
+<p><%= number_to_currency(@product.price) %></p>
+<p>Category: <%= @product.category.name %></p>
+<p>Seller:<%= link_to  @product.user.email, profile_path(@product.user.profile) %></p>
+
+<% if @product.images.attached? %>
+  <h2>Images</h2>
+  <% @product.images.each do |image| %>
+    <%= image_tag image %>
+  <% end %>
+<% end %>
+
+<%= button_to 'Add to Cart', cart_items_path(@product), method: :post %>
+
+<% if user_signed_in? %>
+  <%= link_to 'My Profile', profile_path, class: 'btn btn-primary' %>
+<% else %>
+  <%= link_to 'Sign In', new_user_session_path, class: 'btn btn-primary' %>
+<% end %>
 
 <h2>Reviews</h2>
 <% @reviews.each do |review| %>
-  <p><%= review.content %> - <%= review.rating %>/5</p>
-  <p>Reviewed by: <%= link_to review.profile.user.email, profile_path(review.profile) %></p>
+    <p><%= review.content %></p>
+    <p>Rating: <%= review.rating %></p>
+    <p>Reviewed by: <%= link_to review.profile.user.email, profile_path(review.profile) %></p>
+
 <% end %>
 
-<%= form_with model: [ @product, @product.reviews.build ] do |f| %>
-  <p>
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
-  </p>
-  <p>
-    <%= f.label :rating %><br>
-    <%= f.number_field :rating, min: 1, max: 5 %>
-  </p>
-  <%= f.submit 'Submit Review' %>
+<% if user_signed_in? %>
+  <h3>Leave a Review</h3>
+  <%= form_with(model: [@product, @product.reviews.build], local: true) do |form| %>
+    <div>
+      <%= form.label :rating %>
+      <%= form.number_field :rating, in: 1..5 %>
+    </div>
+    <div>
+      <%= form.label :content %>
+      <%= form.text_area :content %>
+    </div>
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
 <% end %>
