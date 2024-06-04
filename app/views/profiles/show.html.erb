@@ -1,36 +1,79 @@
-<h1><%= @profile.user.email %>'s Profile</h1>
-<p><%= @profile.bio %></p>
-
+<div class="page">
 <% if @profile.user == current_user %>
-  <h3>This is your profile.</h3>
+  <h2 class="profile-title">Your profile</h2>
+
+  <div class="profile-info">
+  <h3 class="profile-info-subtitle">Your email</h3> 
+  <p class="profile-email"><%= @profile.user.email %></p>
+
+  <h3 class="profile-info-subtitle">Your bio</h3>
+  <p><%= @profile.bio %></p>
+
+  <%= button_to 'Edit profile', edit_user_registration_path, method: :get %>
+  </div>
   
-   <h2>Your products</h2>
-   <%if @profile.user.products==nil%>
+  
+  <div class="product-header">
+    <h2 class="profile-title">Your products</h2>
+    <div class="add-product-button">
+      <%= button_to 'Add Product', new_product_path, method: :get %>
+    </div>
+  </div>
+
+  <!--Products-->
+  <%if @profile.user.products==nil%>
     <p>You have no products</p>
-    <%else%>
-  <% @profile.user.products.each do |product| %>
-    <h3><%= link_to product.name, product_path(product) %></h3>
-     <% if product.images.attached? %>
-      <%= image_tag product.images[0]%>
-      <%end%>
-    <p><%= product.description %></p>
-    <p>Price: <%= number_to_currency(product.price) %></p>
-    <%= button_to 'Delete product', product_path(product), method: :delete %>
-    <%end%>
-  <% end %>  
+  <%else%>
+    <% @profile.user.products.each do |product| %>
+    <div class="product-card">
+      <div class="product-panel">
+        <% if product.images.attached? %>
+          <%= image_tag product.images[0], class: "product-image" %>
+        <%end%>
+        <h3><%= link_to product_path(product), class: "product-name" do %>
+          <span class="product-link"></span>
+          <%= product.name %>
+        <% end %></h3>
+        <div class="product-category-price-layout">
+          <p class="product-category"><%= product.category.name %></p>
+          <p class="product-price">Price: <%= number_to_currency(product.price) %></p>
+        </div>
+      </div>
+      <div class="delete-button-container">
+        <%= button_to product_path(product), method: :delete, class: 'delete-button' do %>
+          <i class="fas fa-trash"></i>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
   
-  <h2>Your reviews</h2>
+  <h2 class="profile-title">Your reviews</h2>
+  <% @reviews.each do |review| %>
+    <p><%= review.content %> - <%= review.rating %>/5</p>
+    <p>Reviewed product: <%= link_to review.product.name, product_path(review.product) %></p>
+  <% end %>
+<% else %>
+  <h2 class="profile-title">This is the profile of <%= @profile.user.email %></h2>
+  <p class="profile-bio"><%= @profile.bio %></p>
+  <h2>Reviews</h2>
   <% @reviews.each do |review| %>
     <p><%= review.content %> - <%= review.rating %>/5</p>
     <p>Reviewed product: <%= link_to review.product.name, product_path(review.product) %></p>
   <% end %>
 
-  <li><%= button_to 'Add Product', new_product_path, method: :get %></li>
-  <li><%= button_to 'Edit profile', edit_user_registration_path, method: :get %></li>
-<% else %>
-<h2>Reviews</h2>
-  <% @reviews.each do |review| %>
-    <p><%= review.content %> - <%= review.rating %>/5</p>
-    <p>Reviewed product: <%= link_to review.product.name, product_path(review.product) %></p>
-  <% end %>
+  <h2>Products</h2>
+  <%if @profile.user.products==nil%>
+    <p>This profile has no products.</p>
+  %else%>
+    <% @profile.user.products.each do |product| %>
+      <h3><%= link_to product.name, product_path(product) %></h3>
+      <% if product.images.attached? %>
+        <%= image_tag product.images[0]%>
+      <%end%>
+      <p><%= product.description %></p>
+      <p>Price: <%= number_to_currency(product.price) %></p>
+    <%end%>
+  <% end %> 
 <% end %>
+</div>

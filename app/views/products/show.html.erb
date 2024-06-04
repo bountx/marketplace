@@ -5,29 +5,38 @@
 <p>Category: <%= @product.category.name %></p>
 <p>Seller:<%= link_to  @product.user.email, profile_path(@product.user.profile) %></p>
 
-<div id="carouselExampleIndicators" class="carousel slide"\>
-  <div class="carousel-indicators">
-    <% @product.images.each_with_index do |image, index| %>
-      <button type="button" href="#carouselExampleIndicators" data-bs-slide-to="<%= index %>" <%= 'class="active" aria-current="true"' if index == 0 %> aria-label="Slide <%= index + 1 %>"></button>
-    <% end %>
-  </div>
-  <div class="carousel-inner">
-    <% @product.images.each_with_index do |image, index| %>
-      <div class="carousel-item active">
-        <%=image_tag  image , alt: "Slide #{index + 1}"%>
+<div class="document-center">
+  <!--This carousel-container only exists so we can do the 
+  aspect ratio tricks in CSS-->
+  <div class="carousel-container">
+    <div class="carousel" id="carousel-1" auto-scroll="7000">
+      <!--The uppermost screen will appear first. This is due to JavaScript-->
+      <% @product.images.each do |image| %>
+      <section class="carousel-screen">
+          <%= image_tag image %>
+          <section class="text-container">
+            <p>Chicago</p>
+            <p>Thank you, Chicago!</p>
+          </section>
+        </section>
+      <% end %>
+      <!--These are not screens. They will always be on carousel-->
+      <section class="circle-container">
+        <% @product.images.each do |image| %>
+          <!--These 'circles' need to match the number of carousel screens-->
+          <div class="circle"></div>
+        <% end %>
+      </section>
+      <div class="left-arrow">
+        <span class="chevron left"></span>
       </div>
-    <% end %>
+      <div class="right-arrow">
+        <span class="chevron right"></span>
+      </div>
+    </div>
   </div>
-
-  <button class="carousel-control-prev" type="button" href="#carouselExampleIndicators" data-bs-slide="prev" onclick="$('#myCarousel').carousel('prev')">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" href="#carouselExampleIndicators" data-bs-slide="next" onclick="$('#myCarousel').carousel('next')">
-    <span class="carousel-control-next-icon" aria-hidden="false"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
 </div>
+<%= javascript_include_tag 'carousel', 'data-turbolinks-track': 'reload' %>
 
 <%= button_to 'Add to Cart', cart_items_path(@product), method: :post %>
 

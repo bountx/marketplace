@@ -1,0 +1,60 @@
+.profile-title {
+    color: var(--primary-color);
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.profile-info {
+    padding: 20px;
+    width: 40%;
+    background-color: var(--background-color);
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: var(--accent-color);
+    margin-bottom: 40px;
+}
+
+.profile-info-subtitle {
+    color: var(--primary-color);
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.profile-email {
+    color: var(--primary-color);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.product-header {
+    display: flex;
+}
+
+.add-product-button form {
+    display: inline-block;
+    margin: 0;
+    margin-left: 20px;
+}
+
+.delete-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delete-button {
+    border: none;
+    background-color: transparent;
+    color: var(--accent-color);
+    padding: 8px 12px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: transparent;
+    color: var(--warning-color);
+}
