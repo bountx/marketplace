@@ -35,6 +35,12 @@
 }
 
 .product {
+    display: inline-block;
+    width: auto;
+    margin-right: 20px;
+}
+
+.product-panel {
     position: relative;
     background-color: var(--background-color);
     display: inline-block;
@@ -44,13 +50,17 @@
     border-color: var(--accent-color);
     border-style: solid;
     border-radius: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+    margin-top: 20px;
     overflow: hidden;
 }
 
 .product-image {
     display: inline-block;
     width: 400px;
+    height: 300px;
+    background-size: cover;
+    margin-bottom: 10px;
 }
 
 .product-name {
@@ -59,7 +69,27 @@
     font-weight: 600;
     margin-bottom: 10px;
     text-decoration: none;
-    display: inline;
+    margin-left: 10px;
+}
+
+.product-category-price-layout {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.product-category {
+    color: var(--primary-color);
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.product-price {
+    color: var(--primary-color);
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-right: 10px;
 }
 
 /* Puts span with product link on top of the whole panel */
@@ -71,4 +101,25 @@
     left: 0;
 
     z-index: 1;
+}
+
+.delete-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delete-button {
+    border: none;
+    background-color: transparent;
+    color: var(--accent-color);
+    padding: 8px 12px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: transparent;
+    color: var(--warning-color);
 }
