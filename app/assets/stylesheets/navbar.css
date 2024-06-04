@@ -12,6 +12,7 @@ nav {
     padding: 20px;
     background-color: var(--accent-color);
     font: 30px/1.5 'Roboto', sans-serif;
+    font-weight: 500;
 }
 
 .nav-items {
@@ -29,6 +30,7 @@ nav {
     top: 5px;
     right: 15px;
     padding: 2px 7px;
+    padding-left: 8px;
     border-radius: 50%;
     background: var(--primary-color);
     color: var(--background-color);
@@ -46,4 +48,5 @@ nav {
 
 .logout-button:hover {
     color: var(--primary-color);
+    background: none;
 }
