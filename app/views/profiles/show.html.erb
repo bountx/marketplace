@@ -12,7 +12,13 @@
   <%= button_to 'Edit profile', edit_user_registration_path, method: :get %>
   </div>
   
-  <h2 class="profile-title">Your products</h2>
+  
+  <div class="product-header">
+    <h2 class="profile-title">Your products</h2>
+    <div class="add-product-button">
+      <%= button_to 'Add Product', new_product_path, method: :get %>
+    </div>
+  </div>
 
   <!--Products-->
   <%if @profile.user.products==nil%>
@@ -20,29 +26,33 @@
   <%else%>
     <% @profile.user.products.each do |product| %>
     <div class="product">
-      <% if product.images.attached? %>
-        <%= image_tag product.images[0], class: "product-image" %>
-      <%end%>
-      <h3>
-      <%= link_to product_path(product), class: "product-name" do %>
-        <span class="product-link"></span>
-        <%= product.name %>
-      <% end %>
-      </h3>
-      <p><%= product.description %></p>
-      <p>Price: <%= number_to_currency(product.price) %></p>
+      <div class="product-panel">
+        <% if product.images.attached? %>
+          <%= image_tag product.images[0], class: "product-image" %>
+        <%end%>
+        <h3><%= link_to product_path(product), class: "product-name" do %>
+          <span class="product-link"></span>
+          <%= product.name %>
+        <% end %></h3>
+        <div class="product-category-price-layout">
+          <p class="product-category"><%= product.category.name %></p>
+          <p class="product-price">Price: <%= number_to_currency(product.price) %></p>
+        </div>
+      </div>
+      <div class="delete-button-container">
+        <%= button_to product_path(product), method: :delete, class: 'delete-button' do %>
+          <i class="fas fa-trash"></i>
+        <% end %>
+      </div>
     </div>
-    <%= button_to 'Delete product', product_path(product), method: :delete %>
-    <%end%>
+    <% end %>
   <% end %>
   
-  <h2>Your reviews</h2>
+  <h2 class="profile-title">Your reviews</h2>
   <% @reviews.each do |review| %>
     <p><%= review.content %> - <%= review.rating %>/5</p>
     <p>Reviewed product: <%= link_to review.product.name, product_path(review.product) %></p>
   <% end %>
-
-  <li><%= button_to 'Add Product', new_product_path, method: :get %></li>
 <% else %>
   <h2 class="profile-title">This is the profile of <%= @profile.user.email %></h2>
   <p class="profile-bio"><%= @profile.bio %></p>
