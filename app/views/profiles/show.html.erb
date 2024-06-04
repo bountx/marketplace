@@ -1,4 +1,4 @@
-<div class="profile">
+<div class="page">
 <% if @profile.user == current_user %>
   <h2 class="profile-title">Your profile</h2>
 
@@ -25,7 +25,7 @@
     <p>You have no products</p>
   <%else%>
     <% @profile.user.products.each do |product| %>
-    <div class="product">
+    <div class="product-card">
       <div class="product-panel">
         <% if product.images.attached? %>
           <%= image_tag product.images[0], class: "product-image" %>
