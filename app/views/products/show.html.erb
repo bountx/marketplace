@@ -5,12 +5,38 @@
 <p>Category: <%= @product.category.name %></p>
 <p>Seller:<%= link_to  @product.user.email, profile_path(@product.user.profile) %></p>
 
-<% if @product.images.attached? %>
-  <h2>Images</h2>
-  <% @product.images.each do |image| %>
-    <%= image_tag image %>
-  <% end %>
-<% end %>
+<div class="document-center">
+  <!--This carousel-container only exists so we can do the 
+  aspect ratio tricks in CSS-->
+  <div class="carousel-container">
+    <div class="carousel" id="carousel-1" auto-scroll="7000">
+      <!--The uppermost screen will appear first. This is due to JavaScript-->
+      <% @product.images.each do |image| %>
+      <section class="carousel-screen">
+          <%= image_tag image %>
+          <section class="text-container">
+            <p>Chicago</p>
+            <p>Thank you, Chicago!</p>
+          </section>
+        </section>
+      <% end %>
+      <!--These are not screens. They will always be on carousel-->
+      <section class="circle-container">
+        <% @product.images.each do |image| %>
+          <!--These 'circles' need to match the number of carousel screens-->
+          <div class="circle"></div>
+        <% end %>
+      </section>
+      <div class="left-arrow">
+        <span class="chevron left"></span>
+      </div>
+      <div class="right-arrow">
+        <span class="chevron right"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<%= javascript_include_tag 'carousel', 'data-turbolinks-track': 'reload' %>
 
 <%= button_to 'Add to Cart', cart_items_path(@product), method: :post %>
 

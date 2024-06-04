@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :cart_items
   resources :profiles, only: [:show]
 
+  get '/app/javascripts/carousel.js', to: redirect('/app/javascripts/carousel.js')
+
 
   root to: 'products#index'
 end
