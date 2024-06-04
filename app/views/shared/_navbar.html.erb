@@ -2,18 +2,15 @@
   <ul class="nav-items">
     <li><%= link_to 'Home', root_path %></li>
     <div>
-      <li>
       <% if user_signed_in? %>
-        <%= link_to cart_path(current_user.id) do %>
-          <i class="fas fa-shopping-cart"></i>
-          <% if @cart_items_count.to_i > 0 %>
-            <span class="cart-badge"><%= @cart_items_count %></span>
+        <li>
+          <%= link_to cart_path(current_user.id) do %>
+            <i class="fas fa-shopping-cart"></i>
+            <% if @cart_items_count.to_i > 0 %>
+              <span class="cart-badge"><%= @cart_items_count %></span>
+            <% end %>
           <% end %>
-        <% end %>
-      <% end %>
-      </li>
-
-      <% if user_signed_in? %>
+        </li>
         <li><%= link_to 'Profile', profile_path(current_user.id) %></li>
         <li><%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "logout-button" %></li>
       <% else %>
