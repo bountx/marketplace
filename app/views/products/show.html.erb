@@ -1,72 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-column">
+            <div class="carousel-container">
+                <div class="carousel" id="carousel-1" auto-scroll="7000">
+                    <% @product.images.each do |image| %>
+                        <section class="carousel-screen">
+                            <%= image_tag image, class: "product-image" %>
+                        </section>
+                    <% end %>
+                    <section class="circle-container">
+                        <% @product.images.each do |image| %>
+                            <div class="circle"></div>
+                        <% end %>
+                    </section>
+                    <div class="left-arrow">
+                        <span class="chevron left"></span>
+                    </div>
+                    <div class="right-arrow">
+                        <span class="chevron right"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-column">
+            <h1 class="products-page-name"><%= @product.name %></h1>
+            <p class="product-page-price"><%= number_to_currency(@product.price) %></p>
+            <p class="product-page-category">Category: <%= @product.category.name %></p>
+            <p class="product-page-seller">Seller: <%= link_to @product.user.email, profile_path(@product.user.profile) %></p>
+            <%= button_to 'Add to Cart', cart_items_path(@product), method: :post %>
+        </div>
+    </div>
+    <h2>Descriptions</h2>
+     <p><%= @product.description %></p>
+    <h2>Reviews</h2>
+    <% @reviews.each do |review| %>
+        <div class="review">
+            <p><%= review.content %></p>
+            <p>Rating: <%= review.rating %></p>
+            <p>Reviewed by: <%= link_to review.profile.user.email, profile_path(review.profile) %></p>
+        </div>
+    <% end %>
 
-<h1><%= @product.name %></h1>
-<p><%= @product.description %></p>
-<p><%= number_to_currency(@product.price) %></p>
-<p>Category: <%= @product.category.name %></p>
-<p>Seller:<%= link_to  @product.user.email, profile_path(@product.user.profile) %></p>
-
-<div class="document-center">
-  <!--This carousel-container only exists so we can do the 
-  aspect ratio tricks in CSS-->
-  <div class="carousel-container">
-    <div class="carousel" id="carousel-1" auto-scroll="7000">
-      <!--The uppermost screen will appear first. This is due to JavaScript-->
-      <% @product.images.each do |image| %>
-      <section class="carousel-screen">
-          <%= image_tag image %>
-          <section class="text-container">
-            <p>Chicago</p>
-            <p>Thank you, Chicago!</p>
-          </section>
-        </section>
-      <% end %>
-      <!--These are not screens. They will always be on carousel-->
-      <section class="circle-container">
-        <% @product.images.each do |image| %>
-          <!--These 'circles' need to match the number of carousel screens-->
-          <div class="circle"></div>
+    <% if user_signed_in? %>
+        <h3>Leave a Review</h3>
+        <%= form_with(model: [@product, @product.reviews.build], local: true) do |form| %>
+            <div>
+                <%= form.label :rating %>
+                <%= form.number_field :rating, in: 1..5 %>
+            </div>
+            <div>
+                <%= form.label :content %>
+                <%= form.text_area :content %>
+            </div>
+            <div>
+                <%= form.submit %>
+            </div>
         <% end %>
-      </section>
-      <div class="left-arrow">
-        <span class="chevron left"></span>
-      </div>
-      <div class="right-arrow">
-        <span class="chevron right"></span>
-      </div>
-    </div>
-  </div>
-</div>
-<%= javascript_include_tag 'carousel', 'data-turbolinks-track': 'reload' %>
+    <% end %>
 
-<%= button_to 'Add to Cart', cart_items_path(@product), method: :post %>
-
-<% if user_signed_in? %>
-  <%= link_to 'My Profile', profile_path, class: 'btn btn-primary' %>
-<% else %>
-  <%= link_to 'Sign In', new_user_session_path, class: 'btn btn-primary' %>
-<% end %>
-
-<h2>Reviews</h2>
-<% @reviews.each do |review| %>
-    <p><%= review.content %></p>
-    <p>Rating: <%= review.rating %></p>
-    <p>Reviewed by: <%= link_to review.profile.user.email, profile_path(review.profile) %></p>
-
-<% end %>
-
-<% if user_signed_in? %>
-  <h3>Leave a Review</h3>
-  <%= form_with(model: [@product, @product.reviews.build], local: true) do |form| %>
-    <div>
-      <%= form.label :rating %>
-      <%= form.number_field :rating, in: 1..5 %>
-    </div>
-    <div>
-      <%= form.label :content %>
-      <%= form.text_area :content %>
-    </div>
-    <div>
-      <%= form.submit %>
-    </div>
-  <% end %>
-<% end %>
+    <%= javascript_include_tag 'carousel', 'data-turbolinks-track': 'reload' %>
+</body>
+</html>
