@@ -79,6 +79,16 @@
       </div>
       <p class="review-content"><%= review.content %></p>
     </div>
+    <div class="edit-button-container">
+      <%= button_to edit_product_review_path(review), method: :get, class: 'edit-button' do %>
+        <i class="fas fa-edit"></i>
+      <% end %>
+    </div>
+    <div class="delete-button-container">
+      <%= button_to product_review_path(review), method: :delete, class: 'delete-button' do %>
+        <i class="fas fa-trash"></i>
+      <% end %>
+    </div>
   <% end %>
 
 <!--If the profile is not the current user's profile-->
