@@ -11,6 +11,11 @@
   <p><%= @profile.bio %></p>
 
   <%= button_to 'Edit profile', edit_user_registration_path, method: :get %>
+  <!-- if profile is admin, admin can create new category-->
+  <%if @profile.user.admin==true%>
+    <h3>Create a new category</h3>
+    <li><%= link_to 'Add Category', new_category_path%></li>
+  <%end%>
   </div>
   
   
@@ -55,6 +60,7 @@
   <% end %>
   
   <!--Reviews-->
+  <!--Reviews-->
   <h2 class="profile-title">Your reviews</h2>
   <% @reviews.each do |review| %>
     <div class="product-panel review-card">
@@ -90,7 +96,7 @@
       <% end %>
     </div>
   <% end %>
-
+  
 <!--If the profile is not the current user's profile-->
 <% else %>
   <h2 class="profile-title">This is the profile of <%= @profile.user.email %></h2>
