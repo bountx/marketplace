@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   after_create :create_profile
   after_create :create_cart
+  accepts_nested_attributes_for :profile
 
   private
 

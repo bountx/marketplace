@@ -1,7 +1,7 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+  <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
     <%= f.label :email %><br />
@@ -33,6 +33,18 @@
 
   <div class="actions">
     <%= f.submit "Update" %>
+  </div>
+<% end %>
+
+<%= form_for(@user.profile, url: profile_path(@user.profile) ) do |fm| %>
+
+  <div class="field">
+    <%= fm.label :bio %>
+    <%= fm.text_area :bio %>
+  </div>
+
+  <div class="actions">
+    <%= fm.submit "Update Bio" %>
   </div>
 <% end %>
 
