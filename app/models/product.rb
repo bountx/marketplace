@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
   belongs_to :category
-  belongs_to :user
+  belongs_to :profile
 
   has_many :reviews, dependent: :destroy
   has_many :cart_items, dependent: :destroy
@@ -9,5 +9,5 @@ class Product < ApplicationRecord
 
   accepts_nested_attributes_for :category, reject_if: :all_blank
 
-  validates :name, :description, :price, :category_id, :user_id, presence: true
+  validates :name, :description, :price, :category_id, :profile_id, presence: true
 end

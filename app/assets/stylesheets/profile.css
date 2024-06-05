@@ -38,11 +38,35 @@
     margin-left: 20px;
 }
 
+.edit-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+
+}
+
+.edit-button {
+    border: none;
+    background-color: transparent;
+    color: var(--accent-color);
+    padding: 8px 12px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+
+}
+
+.edit-button:hover {
+    background-color: transparent;
+    color: var(--primary-color);
+}
+
 .delete-button-container {
     width: 100%;
     display: flex;
     justify-content: flex-end;
     margin-bottom: 50px;
+
 }
 
 .delete-button {

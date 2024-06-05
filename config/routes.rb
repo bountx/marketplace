@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     end
   end
   resources :cart_items
-  resources :profiles, only: [:show]
+  resources :profiles, only: [:show,:edit,:update]
 
   get '/app/javascripts/carousel.js', to: redirect('/app/javascripts/carousel.js')
 
