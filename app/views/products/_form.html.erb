@@ -40,12 +40,4 @@
     <%= form.label :images, 'Images' %>
     <%= form.file_field :images, multiple: true %>
   </div>
-
-  <h3>Or create a new category</h3>
-
-  <li><%= link_to 'Add Category', new_category_path%></li>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>

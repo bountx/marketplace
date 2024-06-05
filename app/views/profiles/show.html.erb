@@ -10,6 +10,10 @@
   <p><%= @profile.bio %></p>
 
   <%= button_to 'Edit profile', edit_user_registration_path, method: :get %>
+  <%if @profile.user.admin==true%>
+    <h3>Create a new category</h3>
+    <li><%= link_to 'Add Category', new_category_path%></li>
+  <%end%>
   </div>
   
   
@@ -65,7 +69,7 @@
   <h2>Products</h2>
   <%if @profile.user.products==nil%>
     <p>This profile has no products.</p>
-  %else%>
+  <%else%>
     <% @profile.user.products.each do |product| %>
       <h3><%= link_to product.name, product_path(product) %></h3>
       <% if product.images.attached? %>
