@@ -34,7 +34,7 @@
             <h1 class="products-page-name"><%= @product.name %></h1>
             <p class="product-page-price"><%= number_to_currency(@product.price) %></p>
             <p class="product-page-category">Category: <%= @product.category.name %></p>
-            <p class="product-page-seller">Seller: <%= link_to @product.user.email, profile_path(@product.user.profile) %></p>
+            <p class="product-page-seller">Seller: <%= link_to @product.profile.user.email, profile_path(@product.profile) %></p>
             <%= form_with model: CartItem.new, url: cart_items_path, method: :post do |f| %>
                 <%= f.hidden_field :product_id, value: @product.id %>
                 <%= f.number_field :quantity, value: 1, min: 1 %>
@@ -53,7 +53,7 @@
         </div>
     <% end %>
     <!--if user is current user show button to edit product-->
-    <% if @product.user_id==current_user.id%>
+    <% if @product.profile_id==current_user.id%>
           <div class="edit-button-container">
         <%= button_to edit_product_path(@product), method: :get, class: 'edit-button' do %>
           <i class="fas fa-edit"></i>

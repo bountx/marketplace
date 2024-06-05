@@ -22,10 +22,10 @@
   </div>
 
   <!--Products-->
-  <%if @profile.user.products==nil%>
+  <%if @profile.products==nil%>
     <p>You have no products</p>
   <%else%>
-    <% @profile.user.products.each do |product| %>
+    <% @profile.products.each do |product| %>
     <div class="product-card">
       <div class="product-panel">
         <% if product.images.attached? %>
@@ -94,7 +94,7 @@
   <h2>Products</h2>
   <%if @profile.user.products==nil%>
     <p>This profile has no products.</p>
-  %else%>
+  <%else%>
     <% @profile.user.products.each do |product| %>
       <h3><%= link_to product.name, product_path(product) %></h3>
       <% if product.images.attached? %>
