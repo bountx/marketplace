@@ -40,6 +40,11 @@
           <p class="product-price">Price: <%= number_to_currency(product.price) %></p>
         </div>
       </div>
+      <div class="edit-button-container">
+        <%= button_to edit_product_path(product), method: :get, class: 'edit-button' do %>
+          <i class="fas fa-edit"></i>
+        <% end %>
+      </div>
       <div class="delete-button-container">
         <%= button_to product_path(product), method: :delete, class: 'delete-button' do %>
           <i class="fas fa-trash"></i>
