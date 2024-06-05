@@ -1,4 +1,5 @@
 <div class="page">
+<!--If the profile is the current user's profile-->
 <% if @profile.user == current_user %>
   <h2 class="profile-title">Your profile</h2>
 
@@ -48,11 +49,34 @@
     <% end %>
   <% end %>
   
+  <!--Reviews-->
   <h2 class="profile-title">Your reviews</h2>
   <% @reviews.each do |review| %>
-    <p><%= review.content %> - <%= review.rating %>/5</p>
-    <p>Reviewed product: <%= link_to review.product.name, product_path(review.product) %></p>
+    <div class="product-panel review-card">
+      <% if review.product.images.attached? %>
+        <%= image_tag review.product.images[0], class: "product-image" %>
+      <%end%>
+      <h3><%= link_to product_path(review.product), class: "product-name" do %>
+        <span class="product-link"></span>
+        <%= review.product.name %>
+      <% end %></h3>
+      <div class="product-category-price-layout">
+        <p class="product-category"><%= review.product.category.name %></p>
+        <p class="product-price">Price: <%= number_to_currency(review.product.price) %></p>
+      </div>
+      <div class="review-rating">
+        <% review.rating.times do %>
+          <i class="fas fa-star star-on"></i>
+        <% end %>
+        <% (5 - review.rating).times do %>
+          <i class="fas fa-star star-off"></i>
+        <% end %>
+      </div>
+      <p class="review-content"><%= review.content %></p>
+    </div>
   <% end %>
+
+<!--If the profile is not the current user's profile-->
 <% else %>
   <h2 class="profile-title">This is the profile of <%= @profile.user.email %></h2>
   <p class="profile-bio"><%= @profile.bio %></p>
