@@ -1,0 +1,44 @@
+<% case @checkout.status %>
+  <% when 'pending' %>
+    <h1>Order Summary</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @summary.each do |item| %>
+          <% if item[:total_price].nil? %>
+            <tr>
+              <td><%= item[:product_name] %></td>
+              <td><%= item[:quantity] %></td>
+              <td><%= number_to_currency(item[:price]) %></td>
+              <td><%= number_to_currency(item[:total]) %></td>
+            </tr>
+          <% else %>
+            <tr>
+              <td colspan="3">Total Price</td>
+              <td><%= number_to_currency(item[:total_price]) %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+    <%= button_to 'Finalize Order', finalize_checkout_path(@checkout), method: :patch, class: 'btn btn-success' %>
+    <%= button_to 'Cancel Order', cancel_checkout_path(@checkout), method: :patch, class: 'btn btn-danger' %>
+  <% when 'finalized' %>
+    <h1>Thank you for your order!</h1>
+    <h2>Your order has been finalized and is now being processed.</h2>
+    <%= link_to 'Back to products page', root_path%>
+  <% when 'cancelled' %>
+    <h1>Your order was successfuly cancelled</h1>
+    <h2>Try to find something else!</h2>
+    <%= link_to 'Back to products page', root_path%>
+  <% else %>
+    <h2><%=@checkout.status%></h2>
+<% end %>
+

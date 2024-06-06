@@ -12,6 +12,12 @@ Rails.application.routes.draw do
   end
   resources :cart_items
   resources :profiles, only: [:show,:edit,:update]
+  resources :checkouts, only: [:show, :create] do
+    member do
+      patch :finalize
+      patch :cancel
+    end
+  end
 
   get '/app/javascripts/carousel.js', to: redirect('/app/javascripts/carousel.js')
 
