@@ -65,6 +65,13 @@ class CartsController < ApplicationController
     redirect_to cart_path(@cart), notice: 'Cart was successfully cleared.'
   end
 
+  def save
+    @cart = current_user.cart
+    serialized_cart = Marshal.dump(@cart)
+
+    send_data serialized_cart, type: 'application/octet-stream', filename: 'cart_data.bin'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cart

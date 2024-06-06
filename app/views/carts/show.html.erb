@@ -9,6 +9,7 @@
   <% end %>
   <p>Total: <%= number_to_currency(@cart_items.sum { |item| item.product.price * item.quantity }) %></p>
   <%= button_to 'Proceed to Checkout', checkouts_path, method: :post, class: 'btn btn-primary' %>
+  <%= button_to 'Save Cart', save_cart_path, method: :get,class: 'btn btn-secondary' %>
   <%= button_to 'Clear Cart', clear_cart_path(@cart), method: :delete %>
 <% else %>
   <p>Your cart is empty.</p>
