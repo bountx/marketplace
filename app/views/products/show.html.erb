@@ -51,7 +51,7 @@
             <p>Rating: <%= review.rating %></p>
             <p>Reviewed by: <%= link_to review.profile.user.email, profile_path(review.profile) %></p>
             <!--if is review owner is current user show button to edit review-->
-             <% if review.profile_id==current_user.id%>
+             <% if !current_user.nil? and  review.profile_id==current_user.id%>
                 <div class="edit-button-container">
                     <%= button_to edit_product_review_path(@product, review), method: :get, class: 'edit-button' do %>
                         <i class="fas fa-edit"></i>
@@ -61,7 +61,7 @@
         </div>
     <% end %>
     <!--if owner of the product is current user show button to edit product-->
-    <% if @product.profile_id==current_user.id%>
+    <% if !current_user.nil? and @product.profile_id==current_user.id%>
           <div class="edit-button-container">
         <%= button_to edit_product_path(@product), method: :get, class: 'edit-button' do %>
           <i class="fas fa-edit"></i>
