@@ -149,6 +149,7 @@
         <% end %>
     <% end %>
     <!--if owner of the product is current user show button to edit product-->
+    <!--
     <% if !current_user.nil? and @product.profile_id==current_user.id%>
             <div class="edit-button-container">
         <%= button_to edit_product_path(@product), method: :get, class: 'edit-button' do %>
@@ -156,6 +157,7 @@
         <% end %>
         </div>
     <%end%>
+    -->
 
     <%= javascript_include_tag 'carousel', 'data-turbolinks-track': 'reload' %>
 <div class="page">
