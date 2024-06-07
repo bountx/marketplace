@@ -1,16 +1,7 @@
-.document-center {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 /*We do this because the carousel needs to be 100% width 
   in order for the aspect ratio trick to work*/
 .carousel-container {
-    max-width: 980px;
+    max-width: 600px;
     width: 95%;
 }
 
@@ -20,7 +11,7 @@
     position: relative;
     width: 100%;
     /*Width of image is 980px. Height is 570px.*/
-    padding-top: calc(570 / 980 * 100%);
+    padding-top: calc(450 / 600 * 100%);
     overflow: hidden;
 }
 
