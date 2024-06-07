@@ -46,12 +46,22 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1 or /products/1.json
   def update
     respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
-        format.json { render :show, status: :ok, location: @product }
+      if product_params[:images]!=[""]
+        if @product.update(product_params)
+          format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
+          format.json { render :show, status: :ok, location: @product }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @product.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
+        if @product.update(product_params_without_images)
+          format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
+          format.json { render :show, status: :ok, location: @product }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @product.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -73,6 +83,10 @@ class ProductsController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
+
+    def product_params_without_images
+      params.require(:product).permit(:name, :description, :price, :category_id, :profile_id)
+    end
     def product_params
       params.require(:product).permit(:name, :description, :price, :category_id, :profile_id, images: [])
     end
