@@ -21,7 +21,7 @@
       <%= button_to 'Add Product', new_product_path, method: :get %>
     </div>
     <%if @profile.user.admin==true%>
-      <p><%= button_to 'Add Category', new_category_path%></p>
+      <p><%= button_to 'Add Category', new_category_path, method: :get%></p>
     <%end%>
   </div>
 

@@ -65,21 +65,23 @@
     <p class="product-page-description" ><%= @product.description %></p>
 
     <% if user_signed_in? %>
-        <h3 class="product-page-description-title">Leave a Review</h3>
-        <%= form_with(model: [@product, @product.reviews.build], local: true, html: { class: 'review-form' }) do |form| %>
-            <div class="star-rating">
-            <% 5.times do |i| %>
-                <i class="fas fa-star star-off" data-value="<%= i + 1 %>"></i>
+        <%if @product.reviews.find_by(profile_id: current_user.profile.id)==nil%>
+            <h3 class="product-page-description-title">Leave a Review</h3>
+            <%= form_with(model: [@product, @product.reviews.build], local: true, html: { class: 'review-form' }) do |form| %>
+                <div class="star-rating">
+                <% 5.times do |i| %>
+                    <i class="fas fa-star star-off" data-value="<%= i + 1 %>"></i>
+                <% end %>
+                </div>
+                <%= form.hidden_field :rating, id: 'review_rating' %>
+                <div>
+                <%= form.text_area :content, class: 'content-textarea', placeholder: 'Your review...' %>
+                </div>
+                <div>
+                <%= form.submit %>
+                </div>
             <% end %>
-            </div>
-            <%= form.hidden_field :rating, id: 'review_rating' %>
-            <div>
-            <%= form.text_area :content, class: 'content-textarea', placeholder: 'Your review...' %>
-            </div>
-            <div>
-            <%= form.submit %>
-            </div>
-        <% end %>
+        <%end%>
     <% end %>
     <script>
     document.addEventListener('DOMContentLoaded', function() {

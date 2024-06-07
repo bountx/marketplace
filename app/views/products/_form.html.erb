@@ -1,9 +1,7 @@
-
-
-<%= form_with(model: @product, local: true, multipart: true) do |form| %>
+<%= form_with(model: @product, local: true, multipart: true, ) do |form| %>
   <% if @product.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+      <h2 class="login-heading"><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
       <ul>
         <% @product.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -13,36 +11,35 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, placeholder: "Product Name", class: "input-field" %>
   </div>
 
   <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, placeholder: "Product Description", class: "input-field" %>
   </div>
 
   <div class="field">
-    <%= form.label :price %>
-    <%= form.number_field :price, step: :any %>
+    <%= form.number_field :price, step: :any, placeholder: "Product Price", class: "input-field" %>
   </div>
 
   <div class="field">
-    <%= form.label :category_id, 'Category' %>
-    <%= form.collection_select :category_id, @categories, :id, :name, prompt: true %>
+    <%= form.collection_select :category_id, @categories, :id, :name, { prompt: true }, { class: "input-field" } %>
   </div>
 
   <div class="field">
-  <%= form.hidden_field :profile_id, value: current_user.profile.id  %>
+    <%= form.hidden_field :profile_id, value: current_user.profile.id %>
   </div>
 
-  
   <div class="field">
-    <%= form.label :images, 'Images' %>
-    <%= form.file_field :images, multiple: true %>
+    <%= form.label :images, 'Images', class: "input-label" %>
+    <%= form.file_field :images, multiple: true, class: "input-field" %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
+
+  <div class="sign-up">
+  <%= link_to "Back to products", products_path %>
+</div>
 <% end %>
