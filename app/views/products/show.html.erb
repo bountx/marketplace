@@ -1,92 +1,161 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Page</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <div class="left-column">
-            <div class="carousel-container">
-                <div class="carousel" id="carousel-1" auto-scroll="7000">
-                    <% @product.images.each do |image| %>
-                        <section class="carousel-screen">
-                            <%= image_tag image, class: "product-image" %>
-                        </section>
-                    <% end %>
-                    <section class="circle-container">
-                        <% @product.images.each do |image| %>
-                            <div class="circle"></div>
-                        <% end %>
+<div class="page">
+    <div class="left-column">
+        <div class="carousel-container">
+            <div class="carousel" id="carousel-1" auto-scroll="7000">
+                <% @product.images.each do |image| %>
+                    <section class="carousel-screen">
+                        <%= image_tag image, class: "product-image" %>
                     </section>
-                    <div class="left-arrow">
-                        <span class="chevron left"></span>
-                    </div>
-                    <div class="right-arrow">
-                        <span class="chevron right"></span>
-                    </div>
+                <% end %>
+                <section class="circle-container">
+                    <% @product.images.each do |image| %>
+                        <div class="circle"></div>
+                    <% end %>
+                </section>
+                <div class="left-arrow">
+                    <span class="chevron left"></span>
+                </div>
+                <div class="right-arrow">
+                    <span class="chevron right"></span>
                 </div>
             </div>
         </div>
         <div class="right-column">
-            <h1 class="products-page-name"><%= @product.name %></h1>
-            <p class="product-page-price"><%= number_to_currency(@product.price) %></p>
+            <h1 class="product-page-name"><%= @product.name %></h1>
             <p class="product-page-category">Category: <%= @product.category.name %></p>
+            <p class="product-page-price"><%= number_to_currency(@product.price) %></p>
+            <%= form_with model: CartItem.new, url: cart_items_path, method: :post, local: true do |f| %>
+            <div class="quantity-container">
+                <button type="button" id="minus-btn" class="quantity-btn"><i class="fas fa-minus"></i></button>
+                <span id="quantity-display">1</span>
+                <button type="button" id="plus-btn" class="quantity-btn"><i class="fas fa-plus"></i></button>
+            </div>
+            <%= f.hidden_field :product_id, value: @product.id %>
+            <%= f.hidden_field :quantity, value: 1, id: 'quantity-field' %>
+            <%= f.submit 'Add to Cart', class: "submit-btn"%>
+            <% end %>
             <p class="product-page-seller">Seller: <%= link_to @product.profile.user.email, profile_path(@product.profile) %></p>
-            <%= form_with model: CartItem.new, url: cart_items_path, method: :post do |f| %>
-                <%= f.hidden_field :product_id, value: @product.id %>
-                <%= f.number_field :quantity, value: 1, min: 1 %>
-                <%= f.submit 'Add to Cart' %>
-            <% end %> 
+
+            <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const minusBtn = document.getElementById('minus-btn');
+                const plusBtn = document.getElementById('plus-btn');
+                const quantityDisplay = document.getElementById('quantity-display');
+                const quantityField = document.getElementById('quantity-field');
+
+                minusBtn.addEventListener('click', function () {
+                let currentValue = parseInt(quantityDisplay.innerText, 10);
+                if (currentValue > 1) {
+                    quantityDisplay.innerText = currentValue - 1;
+                    quantityField.value = currentValue - 1;
+                }
+                });
+
+                plusBtn.addEventListener('click', function () {
+                let currentValue = parseInt(quantityDisplay.innerText, 10);
+                quantityDisplay.innerText = currentValue + 1;
+                quantityField.value = currentValue + 1;
+                });
+            });
+            </script>
+
         </div>
     </div>
-    <h2>Descriptions</h2>
-     <p><%= @product.description %></p>
-    <h2>Reviews</h2>
+    <h2 class="product-page-description-title">Description</h2>
+    <p class="product-page-description" ><%= @product.description %></p>
+
+    <% if user_signed_in? %>
+        <h3 class="product-page-description-title">Leave a Review</h3>
+        <%= form_with(model: [@product, @product.reviews.build], local: true, html: { class: 'review-form' }) do |form| %>
+            <div class="star-rating">
+            <% 5.times do |i| %>
+                <i class="fas fa-star star-off" data-value="<%= i + 1 %>"></i>
+            <% end %>
+            </div>
+            <%= form.hidden_field :rating, id: 'review_rating' %>
+            <div>
+            <%= form.text_area :content, class: 'content-textarea', placeholder: 'Your review...' %>
+            </div>
+            <div>
+            <%= form.submit %>
+            </div>
+        <% end %>
+    <% end %>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelectorAll('.star-rating .fa-star');
+    const ratingInput = document.getElementById('review_rating');
+
+    stars.forEach(star => {
+        star.addEventListener('mouseover', handleMouseOver);
+        star.addEventListener('mouseout', handleMouseOut);
+        star.addEventListener('click', handleClick);
+    });
+
+    function handleMouseOver(event) {
+        const value = parseInt(event.target.getAttribute('data-value'));
+        highlightStars(value);
+    }
+
+    function handleMouseOut() {
+        const selectedValue = parseInt(ratingInput.value) || 0;
+        highlightStars(selectedValue);
+    }
+
+    function handleClick(event) {
+        const value = parseInt(event.target.getAttribute('data-value'));
+        ratingInput.value = value;
+        highlightStars(value);
+    }
+
+    function highlightStars(value) {
+        stars.forEach(star => {
+        const starValue = parseInt(star.getAttribute('data-value'));
+        if (starValue <= value) {
+            star.classList.add('star-on');
+            star.classList.remove('star-off');
+        } else {
+            star.classList.add('star-off');
+            star.classList.remove('star-on');
+        }
+        });
+    }
+    });
+    </script>
+    
+    <h2 class="product-page-description-title">Reviews</h2>
     <% @reviews.each do |review| %>
+        <% if review.profile.present? && review.rating.present? %>
         <div class="review">
-            <p><%= review.content %></p>
-            <p>Rating: <%= review.rating %></p>
-            <p>Reviewed by: <%= link_to review.profile.user.email, profile_path(review.profile) %></p>
-            <!--if is review owner is current user show button to edit review-->
-             <% if !current_user.nil? and  review.profile_id==current_user.id%>
-                <div class="edit-button-container">
+            <div class="review-rating product-page-review-rating">
+                <% review.rating.times do %>
+                    <i class="fas fa-star star-on"></i>
+                <% end %>
+                <% (5 - review.rating).times do %>
+                    <i class="fas fa-star star-off"></i>
+                <% end %>
+                <p class="product-page-reviewer"><%= link_to review.profile.user.email, profile_path(review.profile) %></p>
+                <% if !current_user.nil? and  review.profile_id==current_user.id%>
+                <div class="review-edit-button-container">
                     <%= button_to edit_product_review_path(@product, review), method: :get, class: 'edit-button' do %>
                         <i class="fas fa-edit"></i>
                     <% end %>
                 </div>
                 <%end%>
+            </div>
+            <p class="product-page-review-content"><%= review.content %></p>
+            <!--if is review owner is current user show button to edit review-->
         </div>
+        <% end %>
     <% end %>
     <!--if owner of the product is current user show button to edit product-->
     <% if !current_user.nil? and @product.profile_id==current_user.id%>
-          <div class="edit-button-container">
+            <div class="edit-button-container">
         <%= button_to edit_product_path(@product), method: :get, class: 'edit-button' do %>
-          <i class="fas fa-edit"></i>
+            <i class="fas fa-edit"></i>
         <% end %>
-      </div>
+        </div>
     <%end%>
 
-    <% if user_signed_in? %>
-        <h3>Leave a Review</h3>
-        <%= form_with(model: [@product, @product.reviews.build], local: true) do |form| %>
-            <div>
-                <%= form.label :rating %>
-                <%= form.number_field :rating, in: 1..5 %>
-            </div>
-            <div>
-                <%= form.label :content %>
-                <%= form.text_area :content %>
-            </div>
-            <div>
-                <%= form.submit %>
-            </div>
-        <% end %>
-    <% end %>
-
     <%= javascript_include_tag 'carousel', 'data-turbolinks-track': 'reload' %>
-</body>
-</html>
-
+<div class="page">

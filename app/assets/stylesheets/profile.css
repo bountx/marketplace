@@ -95,11 +95,12 @@
 
 .star-on {
     color: var(--primary-color);
+    margin-right: 5px;
 }
 
 .star-off {
     color: var(--accent-color);
-
+    margin-right: 5px;
 }
 
 .review-content {
