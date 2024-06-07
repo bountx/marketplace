@@ -8,14 +8,10 @@
   <p class="profile-email"><%= @profile.user.email %></p>
 
   <h3 class="profile-info-subtitle">Your bio</h3>
-  <p><%= @profile.bio %></p>
+  <p class="profile-bio"><%= @profile.bio %></p>
 
   <%= button_to 'Edit profile', edit_user_registration_path, method: :get %>
   <!-- if profile is admin, admin can create new category-->
-  <%if @profile.user.admin==true%>
-    <h3>Create a new category</h3>
-    <li><%= link_to 'Add Category', new_category_path%></li>
-  <%end%>
   </div>
   
   
@@ -24,6 +20,9 @@
     <div class="add-product-button">
       <%= button_to 'Add Product', new_product_path, method: :get %>
     </div>
+    <%if @profile.user.admin==true%>
+      <p><%= button_to 'Add Category', new_category_path%></p>
+    <%end%>
   </div>
 
   <!--Products-->
@@ -45,12 +44,10 @@
           <p class="product-price">Price: <%= number_to_currency(product.price) %></p>
         </div>
       </div>
-      <div class="edit-button-container">
+      <div class="delete-button-container">
         <%= button_to edit_product_path(product), method: :get, class: 'edit-button' do %>
           <i class="fas fa-edit"></i>
         <% end %>
-      </div>
-      <div class="delete-button-container">
         <%= button_to product_path(product), method: :delete, class: 'delete-button' do %>
           <i class="fas fa-trash"></i>
         <% end %>
@@ -66,37 +63,37 @@
     <p>You have no reviews</p>
   <%else%>
   <% @reviews.each do |review| %>
-    <div class="product-panel review-card">
-      <% if review.product.images.attached? %>
-        <%= image_tag review.product.images[0], class: "product-image" %>
-      <%end%>
-      <h3><%= link_to product_path(review.product), class: "product-name" do %>
-        <span class="product-link"></span>
-        <%= review.product.name %>
-      <% end %></h3>
-      <div class="product-category-price-layout">
-        <p class="product-category"><%= review.product.category.name %></p>
-        <p class="product-price">Price: <%= number_to_currency(review.product.price) %></p>
+    <div class="product-card">
+      <div class="product-panel">
+        <% if review.product.images.attached? %>
+          <%= image_tag review.product.images[0], class: "product-image" %>
+        <%end%>
+        <h3><%= link_to product_path(review.product), class: "product-name" do %>
+          <span class="product-link"></span>
+          <%= review.product.name %>
+        <% end %></h3>
+        <div class="product-category-price-layout">
+          <p class="product-category"><%= review.product.category.name %></p>
+          <p class="product-price">Price: <%= number_to_currency(review.product.price) %></p>
+        </div>
+        <div class="review-rating">
+          <% review.rating.times do %>
+            <i class="fas fa-star star-on"></i>
+          <% end %>
+          <% (5 - review.rating).times do %>
+            <i class="fas fa-star star-off"></i>
+          <% end %>
+        </div>
+        <p class="review-content"><%= review.content %></p>
       </div>
-      <div class="review-rating">
-        <% review.rating.times do %>
-          <i class="fas fa-star star-on"></i>
+      <div class="delete-button-container">
+        <%= button_to edit_product_review_path(review.product_id,review), method: :get, class: 'edit-button' do %>
+          <i class="fas fa-edit"></i>
         <% end %>
-        <% (5 - review.rating).times do %>
-          <i class="fas fa-star star-off"></i>
+        <%= button_to product_review_path(review), method: :delete, class: 'delete-button' do %>
+          <i class="fas fa-trash"></i>
         <% end %>
       </div>
-      <p class="review-content"><%= review.content %></p>
-    </div>
-    <div class="edit-button-container">
-      <%= button_to edit_product_review_path(review.product_id,review), method: :get, class: 'edit-button' do %>
-        <i class="fas fa-edit"></i>
-      <% end %>
-    </div>
-    <div class="delete-button-container">
-      <%= button_to product_review_path(review), method: :delete, class: 'delete-button' do %>
-        <i class="fas fa-trash"></i>
-      <% end %>
     </div>
   <% end %>
   <% end %>

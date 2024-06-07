@@ -118,6 +118,11 @@ h1 {
   color: var(--hover-color);
 }
 
+.star-rating .star-on:hover,
+.star-rating .star-off:hover {
+  cursor: pointer;
+}
+
 .star-rating {
   margin-bottom: 20px;
 }
