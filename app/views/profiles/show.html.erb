@@ -58,6 +58,7 @@
     </div>
     <% end %>
   <% end %>
+  
 
   <!--Reviews-->
   <h2 class="profile-title">Your reviews</h2>
@@ -88,7 +89,7 @@
       <p class="review-content"><%= review.content %></p>
     </div>
     <div class="edit-button-container">
-      <%= button_to edit_product_review_path(review), method: :get, class: 'edit-button' do %>
+      <%= button_to edit_product_review_path(review.product_id,review), method: :get, class: 'edit-button' do %>
         <i class="fas fa-edit"></i>
       <% end %>
     </div>

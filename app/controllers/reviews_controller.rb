@@ -17,8 +17,8 @@ class ReviewsController < ApplicationController
 
   # GET /reviews/1/edit
   def edit
-    @product = Product.find_by(params[:product_id])
-    @review = @product.reviews.find_by(params[:id])
+    @product = Product.find(params[:product_id])
+    @review = @product.reviews.find(params[:id])
   end
 
   # POST /reviews or /reviews.json
