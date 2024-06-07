@@ -27,7 +27,7 @@
   </div>
 
   <!--Products-->
-  <%if @profile.products==nil%>
+  <%if @profile.products==[]%>
     <p>You have no products</p>
   <%else%>
     <% @profile.products.each do |product| %>
@@ -58,10 +58,12 @@
     </div>
     <% end %>
   <% end %>
-  
-  <!--Reviews-->
+
   <!--Reviews-->
   <h2 class="profile-title">Your reviews</h2>
+  <% if @reviews==[] %>
+    <p>You have no reviews</p>
+  <%else%>
   <% @reviews.each do |review| %>
     <div class="product-panel review-card">
       <% if review.product.images.attached? %>
@@ -96,6 +98,7 @@
       <% end %>
     </div>
   <% end %>
+  <% end %>
   
 <!--If the profile is not the current user's profile-->
 <% else %>
@@ -108,10 +111,10 @@
   <% end %>
 
   <h2>Products</h2>
-  <%if @profile.user.products==nil%>
+  <%if @profile.products==nil%>
     <p>This profile has no products.</p>
   <%else%>
-    <% @profile.user.products.each do |product| %>
+    <% @profile.products.each do |product| %>
       <h3><%= link_to product.name, product_path(product) %></h3>
       <% if product.images.attached? %>
         <%= image_tag product.images[0]%>
