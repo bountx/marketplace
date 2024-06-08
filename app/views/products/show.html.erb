@@ -65,7 +65,6 @@
     <p class="product-page-description" ><%= @product.description %></p>
 
     <% if user_signed_in? %>
-        <%if @product.reviews.find_by(profile_id: current_user.profile.id)==nil%>
             <h3 class="product-page-description-title">Leave a Review</h3>
             <%= form_with(model: [@product, @product.reviews.build], local: true, html: { class: 'review-form' }) do |form| %>
                 <div class="star-rating">
@@ -81,7 +80,6 @@
                 <%= form.submit %>
                 </div>
             <% end %>
-        <%end%>
     <% end %>
     <script>
     document.addEventListener('DOMContentLoaded', function() {

@@ -1,16 +1,26 @@
 <!-- app/views/carts/show.html.erb -->
-<h1>Your Cart</h1>
-<% if @cart_items.present? %>
-  <% @cart_items.each do |item| %>
-    <p>
-      <%= item.product.name %> - <%= item.quantity %> - <%= number_to_currency(item.product.price * item.quantity) %>
-      <%= button_to 'Remove', cart_item_path(item), method: :delete %>
-    </p>
+<div class="cart-container">
+  <h1>Your Cart</h1>
+  <% if @cart_items.present? %>
+    <div class="cart-items">
+      <% @cart_items.each do |item| %>
+        <div class="cart-item">
+          <span class="item-name"><%= item.product.name %></span>
+          <span class="item-quantity">Quantity: <%= item.quantity %></span>
+          <span class="item-price"><%= number_to_currency(item.product.price * item.quantity) %></span>
+          <%= button_to 'Remove', cart_item_path(item), method: :delete, class: 'btn btn-danger' %>
+        </div>
+      <% end %>
+    </div>
+    <div class="cart-total">
+      <p>Total: <%= number_to_currency(@cart_items.sum { |item| item.product.price * item.quantity }) %></p>
+    </div>
+    <div class="cart-actions">
+      <%= button_to 'Proceed to Checkout', checkouts_path, method: :post, class: 'btn btn-primary' %>
+      <%= button_to 'Save Cart', save_cart_path, method: :get, class: 'btn btn-secondary' %>
+      <%= button_to 'Clear Cart', clear_cart_path(@cart), method: :delete, class: 'btn btn-warning' %>
+    </div>
+  <% else %>
+    <p class="empty-cart">Your cart is empty.</p>
   <% end %>
-  <p>Total: <%= number_to_currency(@cart_items.sum { |item| item.product.price * item.quantity }) %></p>
-  <%= button_to 'Proceed to Checkout', checkouts_path, method: :post, class: 'btn btn-primary' %>
-  <%= button_to 'Save Cart', save_cart_path, method: :get,class: 'btn btn-secondary' %>
-  <%= button_to 'Clear Cart', clear_cart_path(@cart), method: :delete %>
-<% else %>
-  <p>Your cart is empty.</p>
-<% end %>
+</div>
