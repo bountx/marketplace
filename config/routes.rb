@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :purchase_history, only: [:show] do
+    post 'finalize_purchase', to: 'purchase_histories#finalize_purchase', as: 'finalize_purchase'
+  end
+
   resources :cart_items
   resources :profiles, only: [:show,:edit,:update]
   resources :checkouts, only: [:show, :create] do

@@ -28,7 +28,7 @@
         <% end %>
       </tbody>
     </table>
-    <%= button_to 'Finalize Order', finalize_checkout_path(@checkout), method: :patch, class: 'btn btn-success' %>
+    <%= button_to 'Finalize Order',finalize_purchase_purchase_history_path, method: :post, class: 'btn btn-success' %>
     <%= button_to 'Cancel Order', cancel_checkout_path(@checkout), method: :patch, class: 'btn btn-danger' %>
   <% when 'finalized' %>
     <h1>Thank you for your order!</h1>

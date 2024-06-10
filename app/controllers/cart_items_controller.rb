@@ -4,7 +4,7 @@ class CartItemsController < ApplicationController
   def create
     @cart = current_user.cart || current_user.create_cart
     @cart_item = @cart.cart_items.find_or_initialize_by(product_id: cart_item_params[:product_id])
-    @cart_item = @cart.cart_items.find_or_initialize_by(product_id: cart_item_params[:product_id])
+
     if @cart_item.new_record?
       @cart_item.quantity = cart_item_params[:quantity].to_i
     else
