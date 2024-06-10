@@ -1,0 +1,22 @@
+<h1>Your Purchase History</h1>
+
+<% @carts.each do |cart| %>
+  <div>
+    <h2>Cart Purchased on <%= cart.updated_at.strftime("%B %d, %Y") %></h2>
+    <ul>
+      <% cart.cart_items.each do |item| %>
+        <li>
+          <strong><%= item.product.name %></strong>
+          <p>Quantity: <%= item.quantity %></p>
+          <p>Price: <%= number_to_currency(item.product.price) %></p>
+          <p>Total: <%= number_to_currency(item.product.price * item.quantity) %></p>
+        </li>
+      <% end %>
+    </ul>
+    <p><strong>Cart Total Price: <%= number_to_currency(cart.cart_items.sum { |item| item.product.price * item.quantity }) %></strong></p>
+  </div>
+<% end %>
+
+<% if @carts.empty? %>
+  <p>You have no purchase history.</p>
+<% end %>

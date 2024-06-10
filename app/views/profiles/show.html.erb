@@ -11,6 +11,7 @@
   <p class="profile-bio"><%= @profile.bio %></p>
 
   <%= button_to 'Edit profile', edit_user_registration_path, method: :get %>
+  <%= button_to 'Your purchase history', purchase_history_path, method: :get %>
   <!-- if profile is admin, admin can create new category-->
   </div>
   

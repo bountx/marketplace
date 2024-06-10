@@ -7,9 +7,11 @@ class User < ApplicationRecord
   has_one :cart, dependent: :destroy
   has_one :profile, dependent: :destroy
   has_one :wishlist, dependent: :destroy
+  has_one :purchase_history, dependent: :destroy
 
   after_create :create_profile
   after_create :create_cart
+  after_create :purchase_history
   accepts_nested_attributes_for :profile
 
   private
