@@ -34,6 +34,7 @@
             <%= f.hidden_field :quantity, value: 1, id: 'quantity-field' %>
             <%= f.submit 'Add to Cart', class: "submit-btn"%>
             <% end %>
+            <%= button_to 'Add to Wishlist', add_product_wishlist_path(@product), method: :post %>
             <p class="product-page-seller">Seller: <%= link_to @product.profile.user.email, profile_path(@product.profile) %></p>
 
             <script>
