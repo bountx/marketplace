@@ -1,13 +1,18 @@
 <!-- app/views/carts/show.html.erb -->
 <div class="cart-container">
-  <h1>Your Cart</h1>
+  <h1 class="cart-title">Your Cart</h1>
   <% if @cart_items.present? %>
     <div class="cart-items">
       <% @cart_items.each do |item| %>
         <div class="cart-item">
-          <span class="item-name"><%= item.product.name %></span>
+          <%= link_to item.product.name, product_path(item.product), class: 'item-name' %>
           <span class="item-quantity">Quantity: <%= item.quantity %></span>
-          <span class="item-price"><%= number_to_currency(item.product.price * item.quantity) %></span>
+          <span class="item-real-price">
+            <%= number_to_currency item.product.price %> x <%= item.quantity %>
+          </span>
+          <span class="item-price">
+            <%= number_to_currency(item.product.price * item.quantity) %>
+          </span>
           <%= button_to 'Remove', cart_item_path(item), method: :delete, class: 'btn btn-danger' %>
         </div>
       <% end %>

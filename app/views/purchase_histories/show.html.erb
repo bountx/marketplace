@@ -1,22 +1,25 @@
-<h1>Your Purchase History</h1>
+<!-- app/views/purchase_histories/index.html.erb -->
+<div class="purchase-history-container">
+  <h1 class="purchase-history-title">Your Purchase History</h1>
 
-<% @carts.each do |cart| %>
-  <div>
-    <h2>Cart Purchased on <%= cart.updated_at.strftime("%B %d, %Y") %></h2>
-    <ul>
-      <% cart.cart_items.each do |item| %>
-        <li>
-          <strong><%= item.product.name %></strong>
-          <p>Quantity: <%= item.quantity %></p>
-          <p>Price: <%= number_to_currency(item.product.price) %></p>
-          <p>Total: <%= number_to_currency(item.product.price * item.quantity) %></p>
-        </li>
-      <% end %>
-    </ul>
-    <p><strong>Cart Total Price: <%= number_to_currency(cart.cart_items.sum { |item| item.product.price * item.quantity }) %></strong></p>
-  </div>
-<% end %>
-
-<% if @carts.empty? %>
-  <p>You have no purchase history.</p>
-<% end %>
+  <% if @carts.present? %>
+    <% @carts.each do |cart| %>
+      <div class="purchase-cart">
+        <h2>Cart Purchased on <%= cart.updated_at.strftime("%B %d, %Y") %></h2>
+        <ul class="purchase-cart-items">
+          <% cart.cart_items.each do |item| %>
+            <li class="purchase-cart-item">
+              <strong class="purchase-item-name"><%= item.product.name %></strong>
+              <p class="purchase-item-quantity">Quantity: <%= item.quantity %></p>
+              <p class="purchase-item-real-price">Price: <%= number_to_currency(item.product.price) %></p>
+              <p class="purchase-item-total-price">Total: <%= number_to_currency(item.product.price * item.quantity) %></p>
+            </li>
+          <% end %>
+        </ul>
+        <p class="cart-total-price"><strong>Cart Total Price: <%= number_to_currency(cart.cart_items.sum { |item| item.product.price * item.quantity }) %></strong></p>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="empty-history">You have no purchase history.</p>
+  <% end %>
+</div>
