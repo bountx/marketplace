@@ -1,0 +1,17 @@
+
+<h1>Your Wishlist</h1>
+
+<% if @products.empty? %>
+  <p>Your wishlist is empty.</p>
+<% else %>
+
+  <% @products.each do |product| %>
+    <div>
+      <h2><%= product.name %></h2>
+      <p>Price: <%= number_to_currency(product.price) %></p>
+      <%= button_to 'Remove', remove_product_wishlist_path(product), method: :delete %>
+    </div>
+  <% end %>
+  <%= button_to 'Save Wishlist', save_wishlist_path, method: :get,class: 'btn btn-secondary' %>
+  <%= button_to 'Clear Wishlist', clear_wishlist_path(@wishlist), method: :delete %>
+<% end %>

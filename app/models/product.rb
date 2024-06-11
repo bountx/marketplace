@@ -6,6 +6,7 @@ class Product < ApplicationRecord
   has_many :cart_items, dependent: :destroy
   has_many :carts, through: :cart_items
   has_many_attached :images
+  has_and_belongs_to_many :wishlists
 
   accepts_nested_attributes_for :category, reject_if: :all_blank
 

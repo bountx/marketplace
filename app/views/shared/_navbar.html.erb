@@ -4,6 +4,9 @@
     <div>
       <% if user_signed_in? %>
         <li>
+          <%= link_to wishlist_path(current_user.id) do %>
+            <i class="fas fa-clipboard-list"></i>
+          <% end %>
           <%= link_to cart_path(current_user.id) do %>
             <i class="fas fa-shopping-cart"></i>
             <% if @cart_items_count.to_i > 0 %>

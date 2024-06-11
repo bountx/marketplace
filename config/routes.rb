@@ -11,6 +11,11 @@ Rails.application.routes.draw do
       get :save
     end
   end
+
+  resource :purchase_history, only: [:show] do
+    post 'finalize_purchase', to: 'purchase_histories#finalize_purchase', as: 'finalize_purchase'
+  end
+
   resources :cart_items
   resources :profiles, only: [:show,:edit,:update]
   resources :checkouts, only: [:show, :create] do
@@ -18,6 +23,13 @@ Rails.application.routes.draw do
       patch :finalize
       patch :cancel
     end
+  end
+
+  resource :wishlist, only: [:show] do
+    post 'add_product/:product_id', to: 'wishlists#add_product', as: 'add_product'
+    delete :clear
+    get :save
+    delete 'remove_product/:product_id', to: 'wishlists#remove_product', as: 'remove_product'
   end
 
   get '/app/javascripts/carousel.js', to: redirect('/app/javascripts/carousel.js')
