@@ -1,17 +1,36 @@
+<div class="page">
+  <div class="wishlist-header">
+    <h1 class="wishlist-title">Your Wishlist</h1>
+    <div class="wishlist-buttons">
+      <%= button_to 'Save', save_wishlist_path, method: :get, class: 'save-wishlist-btn' %>
+      <%= button_to 'Clear', clear_wishlist_path(@wishlist), method: :delete, class: 'clear-wishlist-btn' %>
+    </div>
+  </div>
 
-<h1>Your Wishlist</h1>
-
-<% if @products.empty? %>
-  <p>Your wishlist is empty.</p>
-<% else %>
-
-  <% @products.each do |product| %>
-    <div>
-      <h2><%= product.name %></h2>
-      <p>Price: <%= number_to_currency(product.price) %></p>
-      <%= button_to 'Remove', remove_product_wishlist_path(product), method: :delete %>
+  <% if @products.empty? %>
+    <p>Your wishlist is empty.</p>
+  <% else %>
+    <div class="wishlist-container">
+      <% @products.each do |product| %>
+        <div class="product-card">
+          <div class="product-panel">
+            <% if product.images.attached? %>
+              <%= image_tag product.images[0], class: "product-image" %>
+            <% end %>
+            <h3>
+              <%= link_to product_path(product), class: "product-name" do %>
+                <span class="product-link"></span>
+                <%= product.name %>
+              <% end %>
+            </h3>
+            <div class="product-category-price-layout">
+              <p class="product-category"><%= product.category.name %></p>
+              <p class="product-price">Price: <%= number_to_currency(product.price) %></p>
+            </div>
+          </div>
+          
+        </div>
+      <% end %>
     </div>
   <% end %>
-  <%= button_to 'Save Wishlist', save_wishlist_path, method: :get,class: 'btn btn-secondary' %>
-  <%= button_to 'Clear Wishlist', clear_wishlist_path(@wishlist), method: :delete %>
-<% end %>
+</div>

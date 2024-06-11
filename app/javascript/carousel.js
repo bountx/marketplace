@@ -5,7 +5,7 @@ let leftArrow = document.querySelector("#carousel-1 .left-arrow");
 let screenStore = document.querySelectorAll("#carousel-1 .carousel-screen");
 let numOfScreens = screenStore.length;
 //List of all the circle stores
-let circleStore = document.querySelectorAll("#carousel-1 .circle-container .circle");
+let circleStore = document.querySelectorAll(".circle-container .circle");
 //number to target main screen
 let currentScreen = 0;
 //currently in animation or not

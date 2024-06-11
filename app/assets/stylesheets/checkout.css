@@ -1,0 +1,88 @@
+/* app/assets/stylesheets/order_summary.css */
+
+.order-summary-container {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: var(--darker-background-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-summary-title,
+.order-finalized-title,
+.order-cancelled-title {
+    font-size: 30px;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.order-finalized-subtitle,
+.order-cancelled-subtitle {
+    font-size: 20px;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+}
+
+.order-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.order-summary-table th,
+.order-summary-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.order-summary-table th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.order-summary-table td {
+    background-color: var(--lighter-background-color);
+    color: var(--primary-color);
+}
+
+.order-summary-table tr:last-child td {
+    border-bottom: none;
+}
+
+.order-summary-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.order-summary-actions .btn {
+    flex: 1;
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-success {
+    color: white;
+}
+
+.btn-danger {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.order-status {
+    text-align: center;
+    font-size: 1.2em;
+    color: var(--warning-color);
+}

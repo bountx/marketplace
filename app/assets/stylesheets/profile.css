@@ -28,6 +28,10 @@
     margin-bottom: 10px;
 }
 
+.edit-profile-btn {
+    margin-bottom: 20px;
+}
+
 .product-header {
     display: flex;
 }

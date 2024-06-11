@@ -1,44 +1,48 @@
-<% case @checkout.status %>
-  <% when 'pending' %>
-    <h1>Order Summary</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Product Name</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @summary.each do |item| %>
-          <% if item[:total_price].nil? %>
-            <tr>
-              <td><%= item[:product_name] %></td>
-              <td><%= item[:quantity] %></td>
-              <td><%= number_to_currency(item[:price]) %></td>
-              <td><%= number_to_currency(item[:total]) %></td>
-            </tr>
-          <% else %>
-            <tr>
-              <td colspan="3">Total Price</td>
-              <td><%= number_to_currency(item[:total_price]) %></td>
-            </tr>
+<!-- app/views/checkouts/show.html.erb -->
+<div class="order-summary-container">
+  <% case @checkout.status %>
+    <% when 'pending' %>
+      <h1 class="order-summary-title">Order Summary</h1>
+      <table class="order-summary-table">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @summary.each do |item| %>
+            <% if item[:total_price].nil? %>
+              <tr>
+                <td><%= item[:product_name] %></td>
+                <td><%= item[:quantity] %></td>
+                <td><%= number_to_currency(item[:price]) %></td>
+                <td><%= number_to_currency(item[:total]) %></td>
+              </tr>
+            <% else %>
+              <tr>
+                <td colspan="3">Total Price</td>
+                <td><%= number_to_currency(item[:total_price]) %></td>
+              </tr>
+            <% end %>
           <% end %>
-        <% end %>
-      </tbody>
-    </table>
-    <%= button_to 'Finalize Order',finalize_purchase_purchase_history_path, method: :post, class: 'btn btn-success' %>
-    <%= button_to 'Cancel Order', cancel_checkout_path(@checkout), method: :patch, class: 'btn btn-danger' %>
-  <% when 'finalized' %>
-    <h1>Thank you for your order!</h1>
-    <h2>Your order has been finalized and is now being processed.</h2>
-    <%= link_to 'Back to products page', root_path%>
-  <% when 'cancelled' %>
-    <h1>Your order was successfuly cancelled</h1>
-    <h2>Try to find something else!</h2>
-    <%= link_to 'Back to products page', root_path%>
-  <% else %>
-    <h2><%=@checkout.status%></h2>
-<% end %>
-
+        </tbody>
+      </table>
+      <div class="order-summary-actions">
+        <%= button_to 'Finalize Order', finalize_purchase_purchase_history_path, method: :post, class: 'btn btn-success' %>
+        <%= button_to 'Cancel Order', cancel_checkout_path(@checkout), method: :patch, class: 'btn btn-danger' %>
+      </div>
+    <% when 'finalized' %>
+      <h1 class="order-finalized-title">Thank you for your order!</h1>
+      <h2 class="order-finalized-subtitle">Your order has been finalized and is now being processed.</h2>
+      <%= link_to 'Back to products page', root_path, class: 'btn btn-primary' %>
+    <% when 'cancelled' %>
+      <h1 class="order-cancelled-title">Your order was successfully cancelled</h1>
+      <h2 class="order-cancelled-subtitle">Try to find something else!</h2>
+      <%= link_to 'Back to products page', root_path, class: 'btn btn-primary' %>
+    <% else %>
+      <h2 class="order-status"><%= @checkout.status %></h2>
+  <% end %>
+</div>

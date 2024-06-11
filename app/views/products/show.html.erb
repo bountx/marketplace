@@ -7,11 +7,6 @@
                         <%= image_tag image, class: "product-image" %>
                     </section>
                 <% end %>
-                <section class="circle-container">
-                    <% @product.images.each do |image| %>
-                        <div class="circle"></div>
-                    <% end %>
-                </section>
                 <div class="left-arrow">
                     <span class="chevron left"></span>
                 </div>
@@ -19,6 +14,11 @@
                     <span class="chevron right"></span>
                 </div>
             </div>
+            <section class="circle-container">
+                    <% @product.images.each do |image| %>
+                        <div class="circle"></div>
+                    <% end %>
+            </section>
         </div>
         <div class="right-column">
             <h1 class="product-page-name"><%= @product.name %></h1>
@@ -34,7 +34,7 @@
             <%= f.hidden_field :quantity, value: 1, id: 'quantity-field' %>
             <%= f.submit 'Add to Cart', class: "submit-btn"%>
             <% end %>
-            <%= button_to 'Add to Wishlist', add_product_wishlist_path(@product), method: :post %>
+            <%= button_to 'Add to Wishlist', add_product_wishlist_path(@product), method: :post, class: 'wishlist-btn' %>
             <p class="product-page-seller">Seller: <%= link_to @product.profile.user.email, profile_path(@product.profile) %></p>
 
             <script>
@@ -66,23 +66,21 @@
     <p class="product-page-description" ><%= @product.description %></p>
 
     <% if user_signed_in? %>
-        <%if @product.reviews.find_by(profile_id: current_user.profile.id)==nil%>
-            <h3 class="product-page-description-title">Leave a Review</h3>
-            <%= form_with(model: [@product, @product.reviews.build], local: true, html: { class: 'review-form' }) do |form| %>
-                <div class="star-rating">
-                <% 5.times do |i| %>
-                    <i class="fas fa-star star-off" data-value="<%= i + 1 %>"></i>
-                <% end %>
-                </div>
-                <%= form.hidden_field :rating, id: 'review_rating' %>
-                <div>
-                <%= form.text_area :content, class: 'content-textarea', placeholder: 'Your review...' %>
-                </div>
-                <div>
-                <%= form.submit %>
-                </div>
+        <h3 class="product-page-description-title">Leave a Review</h3>
+        <%= form_with(model: [@product, @product.reviews.build], local: true, html: { class: 'review-form' }) do |form| %>
+            <div class="star-rating">
+            <% 5.times do |i| %>
+                <i class="fas fa-star star-off" data-value="<%= i + 1 %>"></i>
             <% end %>
-        <%end%>
+            </div>
+            <%= form.hidden_field :rating, id: 'review_rating' %>
+            <div>
+            <%= form.text_area :content, class: 'content-textarea', placeholder: 'Your review...' %>
+            </div>
+            <div>
+            <%= form.submit %>
+            </div>
+        <% end %>
     <% end %>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
