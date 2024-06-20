@@ -1,8 +1,7 @@
 <%= form_with(model: [product, review]) do |form| %>
   <% if review.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
-
+    <div id="error_explanation">
+      <h2 class="login-heading"><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
       <ul>
         <% review.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,17 +10,15 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :content, style: "display: block" %>
-    <%= form.text_area :content %>
+  <div class="field">
+    <%= form.text_area :content, placeholder: "Review Content", class: "input-field" %>
   </div>
 
-  <div>
-    <%= form.label :rating, style: "display: block" %>
-    <%= form.number_field :rating %>
+  <div class="field">
+    <%= form.number_field :rating, placeholder: "Rating", class: "input-field" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="actions">
+    <%= form.submit "Submit Review", class: "login-button" %>
   </div>
 <% end %>

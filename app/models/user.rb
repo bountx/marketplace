@@ -11,10 +11,12 @@ class User < ApplicationRecord
 
   after_create :create_profile
   after_create :create_cart
-  after_create :purchase_history
+  after_create :create_purchase_history
   accepts_nested_attributes_for :profile
 
-  private
+  def create_purchase_history
+    PurchaseHistory.create(user: self) unless purchase_history
+  end
 
   def create_cart
     Cart.create(user: self) unless cart

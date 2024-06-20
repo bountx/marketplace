@@ -65,7 +65,7 @@
     <h2 class="product-page-description-title">Description</h2>
     <p class="product-page-description" ><%= @product.description %></p>
 
-    <% if user_signed_in? %>
+    <% if user_signed_in? && current_user!=@product.profile.user && current_user.profile.reviews.find_by(product: @product)==nil %>
         <h3 class="product-page-description-title">Leave a Review</h3>
         <%= form_with(model: [@product, @product.reviews.build], local: true, html: { class: 'review-form' }) do |form| %>
             <div class="star-rating">

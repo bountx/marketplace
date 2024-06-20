@@ -18,7 +18,7 @@ class ReviewsController < ApplicationController
   # GET /reviews/1/edit
   def edit
     @product = Product.find(params[:product_id])
-    @review = @product.reviews.find(params[:id])
+    @review = Review.find(params[:id])
   end
 
   # POST /reviews or /reviews.json
@@ -41,6 +41,8 @@ class ReviewsController < ApplicationController
 
   # PATCH/PUT /reviews/1 or /reviews/1.json
   def update
+    @product = Product.find(params[:product_id])
+    @review = Review.find(params[:id])
     respond_to do |format|
       if @review.update(review_params)
         format.html { redirect_to profile_url(current_user.id)}
@@ -54,9 +56,9 @@ class ReviewsController < ApplicationController
 
   # DELETE /reviews/1 or /reviews/1.json
   def destroy
-    @review = Review.find_by(params[:id])
+    @review = current_user.profile.reviews.find(params[:product_id])
     @product = @review.product
-    @review.destroy
+    @review.destroy!
 
     respond_to do |format|
       format.html { redirect_to @product }

@@ -8,12 +8,12 @@ class PurchaseHistoriesController < ApplicationController
 
   def finalize_purchase
     @cart = current_user.cart
-    @purchase_history = current_user.purchase_history
+    @purchase_history = current_user.purchase_history || current_user.create_purchase_history
     @cart.update(purchase_history: @purchase_history)
     @cart.update(user: nil)
     @purchase_history.carts << @cart
     current_user.purchase_history.update(carts: @purchase_history.carts)
-    current_user.update(cart: Cart.create)
+    current_user.update(cart: Cart.create(user_id: current_user.id))
 
   #  @cart = current_user.cart
    # @purchase_history = current_user.purchase_history || current_user.create_purchase_history
